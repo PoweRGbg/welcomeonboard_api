@@ -1,0 +1,67 @@
+import {
+    Controller,
+    Get,
+    Post,
+    Body,
+    Patch,
+    Param,
+    Delete,
+    UseGuards,
+    Query,
+} from '@nestjs/common';
+import { TaskService } from './task.service';
+import { CreateTaskDto } from '../common/dto/create-task.dto';
+import { UpdateTaskDto } from '../common/dto/update-task.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+
+@Controller('tasks')
+@UseGuards(JwtAuthGuard)
+export class TaskController {
+    constructor(private readonly taskService: TaskService) { }
+
+    @Post()
+    create(@Body() createTaskDto: CreateTaskDto) {
+        return this.taskService.create(createTaskDto);
+    }
+
+    @Get()
+    findAll(@Query('userId') userId?: string, @Query('category') category?: string) {
+        if (userId) {
+            return this.taskService.findByUser(userId);
+        }
+        if (category) {
+            return this.taskService.findByCategory(category);
+        }
+        return this.taskService.findAll();
+    }
+
+    @Get(':id')
+    findOne(@Param('id') id: string) {
+        return this.taskService.findOne(id);
+    }
+
+    @Patch(':id')
+    update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+        return this.taskService.update(id, updateTaskDto);
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: string) {
+        return this.taskService.remove(id);
+    }
+
+    @Post(':id/complete')
+    completeTask(@Param('id') id: string) {
+        return this.taskService.completeTask(id);
+    }
+
+    @Post(':id/start')
+    startTask(@Param('id') id: string) {
+        return this.taskService.startTask(id);
+    }
+
+    @Post(':id/stop')
+    stopTask(@Param('id') id: string) {
+        return this.taskService.stopTask(id);
+    }
+}
