@@ -19,7 +19,7 @@ export class User {
     @Prop({ required: true, unique: true })
     email: string;
 
-    @Prop({ required: true, enum: UserRole, default: UserRole.USER })
+    @Prop({ required: true, enum: UserRole, default: UserRole.EMPLOYEE })
     role: UserRole;
 
     @Prop({ required: true })
