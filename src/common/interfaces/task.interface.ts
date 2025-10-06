@@ -1,4 +1,4 @@
-import { Action } from './action.interface';
+import { Action } from "./action.interface";
 
 export interface Task {
     id: string;
@@ -13,5 +13,4 @@ export interface Task {
     isActive: boolean;
     completionCount: number;
     lastCompletedAt?: Date;
-    isInProgress: boolean;
 }

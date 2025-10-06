@@ -4,16 +4,12 @@ import { Model } from 'mongoose';
 import { Task, TaskDocument } from '../common/schemas/task.schema';
 import { CreateTaskDto } from '../common/dto/create-task.dto';
 import { UpdateTaskDto } from '../common/dto/update-task.dto';
-import { log } from 'console';
 
 @Injectable()
 export class TaskService {
     constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) { }
 
     async create(createTaskDto: CreateTaskDto): Promise<Task> {
-        console.log('Creating task with data:', createTaskDto);
-
-        
         // Generate unique IDs for actions
         if (createTaskDto.actions) {
             createTaskDto.actions = createTaskDto.actions.map(action => ({
@@ -22,9 +18,10 @@ export class TaskService {
             }));
         }
 
-        const createdTask = new this.taskModel(createTaskDto);
-        console.log('Created task instance:', createdTask);
-        
+        const createdTask = new this.taskModel({
+            ...createTaskDto,
+            id: new Object
+        });
         return createdTask.save();
     }
 

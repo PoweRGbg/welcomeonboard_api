@@ -44,3 +44,27 @@ export class Task {
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);
+
+TaskSchema.virtual('id').get(function () {
+    return this._id.toHexString();
+});
+
+// 2. Configure Schema Options for Output
+// This tells Mongoose to apply transformations when converting the document.
+TaskSchema.set('toJSON', {
+    virtuals: true, // Include virtual properties ('id')
+    transform: (doc, ret) => {
+        delete ret._id; // Remove the original '_id' field
+        delete ret.__v; // Optionally remove the version key
+        return ret;
+    },
+});
+
+TaskSchema.set('toObject', {
+    virtuals: true,
+    transform: (doc, ret) => {
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+    },
+});

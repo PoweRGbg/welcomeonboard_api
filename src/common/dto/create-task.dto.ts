@@ -32,8 +32,4 @@ export class CreateTaskDto {
     @IsOptional()
     @IsBoolean()
     isActive?: boolean;
-
-    @IsOptional()
-    @IsBoolean()
-    isInProgress?: boolean;
 }
