@@ -34,7 +34,6 @@ export class TaskController {
         if (category) {
             return this.taskService.findByCategory(category);
         }
-        console.log('Got all tasks:', this.taskService.findAll());
         
         return this.taskService.findAll();
     }

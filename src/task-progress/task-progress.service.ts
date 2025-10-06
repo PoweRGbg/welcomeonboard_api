@@ -25,15 +25,14 @@ export class TaskProgressService {
 
     async findOne(id: string): Promise<TaskProgress> {
         const task = await this.taskProgressModel
-            .findOne({ taskId: id }, { _id: 0, createadAt: 0, startedAt: 0 })
+            // .findOne({ taskId: id }, { _id: 0, createadAt: 0, startedAt: 0 })
+            .findOne({ taskId: id }, { createadAt: 0, startedAt: 0 })
             .exec();
 
         if (!task) {
             this.createNewTaskProgress(id);
         }
 
-        console.log('Found task progress : ', task);
-        
         return task;
     }
 
@@ -54,6 +53,10 @@ export class TaskProgressService {
         console.log('Wanted completed actions ', updateTaskProgressDto.actionsCompleted);
         
         const progressToUpdate = await this.taskProgressModel.findOne({ taskId: id });
+        const found = this.findOne(id);
+        console.log('Found:', found);
+        
+
         let newProgress: CreateTaskProgressDto;
 
         if (!progressToUpdate) {
