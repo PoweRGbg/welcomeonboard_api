@@ -61,7 +61,7 @@ export class TaskProgressService {
                 userId: updateTaskProgressDto.userId,
                 actionsTotal: updateTaskProgressDto.actionsTotal,
                 actionsCompleted: updateTaskProgressDto.actionsCompleted,
-                isCompleted: false,
+                isCompleted: updateTaskProgressDto.actionsCompleted === updateTaskProgressDto.actionsTotal,
             };
         } else {
             newProgress = await this.createNewTaskProgress(updateTaskProgressDto);
