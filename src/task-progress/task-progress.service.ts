@@ -38,7 +38,7 @@ export class TaskProgressService {
 
     async findByUser(userId: string): Promise<TaskProgress[]> {
         return this.taskProgressModel
-            .find({ createdBy: userId }, { _id: 0, createadAt: 0, startedAt: 0 })
+            .find({ userId: userId }, { _id: 0, createadAt: 0, startedAt: 0 })
             .exec();
     }
 
