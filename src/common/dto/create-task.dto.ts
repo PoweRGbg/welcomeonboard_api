@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString, IsUrl, IsArray, ValidateNested, IsBoolean, IsMongoId } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUrl, IsArray, ValidateNested, IsBoolean, IsMongoId, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateActionDto } from './create-action.dto';
 
@@ -32,4 +32,12 @@ export class CreateTaskDto {
     @IsOptional()
     @IsBoolean()
     isActive?: boolean;
+
+    @IsOptional()
+    @IsNumber()
+    completionCount?: number;
+
+    @IsOptional()
+    @IsBoolean()
+    isCompleted?: number;
 }

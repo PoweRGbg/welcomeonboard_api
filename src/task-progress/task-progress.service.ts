@@ -50,31 +50,26 @@ export class TaskProgressService {
 
     async update(id: string, updateTaskProgressDto: UpdateTaskProgressDto): Promise <TaskProgress> {
         // Generate unique IDs for new actions
-        console.log('Wanted completed actions ', updateTaskProgressDto.actionsCompleted);
         
         const progressToUpdate = await this.taskProgressModel.findOne({ taskId: id });
-        const found = this.findOne(id);
-        console.log('Found:', found);
         
-
         let newProgress: CreateTaskProgressDto;
 
-        if (!progressToUpdate) {
+        if (progressToUpdate) {
             newProgress = {
                 taskId: id,
                 userId: updateTaskProgressDto.userId,
                 actionsTotal: updateTaskProgressDto.actionsTotal,
-                actionsCompleted: 0,
-                startedAt: new Date().toString(),
-                completedAt: '',
+                actionsCompleted: updateTaskProgressDto.actionsCompleted,
                 isCompleted: false,
             };
         } else {
-            newProgress = this.createNewTaskProgress(updateTaskProgressDto);
+            newProgress = await this.createNewTaskProgress(updateTaskProgressDto);
+            this.create(newProgress);
         }
 
         const updatedTask = await this.taskProgressModel
-            .findByIdAndUpdate(progressToUpdate._id, progressToUpdate)
+            .findOneAndUpdate({ taskId: id }, newProgress)
             .exec();
 
         if (!updatedTask) {
@@ -134,11 +129,8 @@ export class TaskProgressService {
             userId: updateTaskProgressDto.userId,
             actionsTotal: updateTaskProgressDto.actionsTotal,
             actionsCompleted: updateTaskProgressDto.actionsCompleted,
-            startedAt: updateTaskProgressDto.startedAt,
+            startedAt: new Date(),
             isCompleted: updateTaskProgressDto.actionsCompleted === updateTaskProgressDto.actionsTotal,
-            completedAt: updateTaskProgressDto.actionsCompleted === updateTaskProgressDto.actionsTotal ?
-                new Date().toString() :
-                '',
         };
     }
 }
