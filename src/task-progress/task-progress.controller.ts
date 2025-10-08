@@ -19,6 +19,21 @@ import { TaskProgress } from 'src/common/schemas/task-progress.schema';
 export class TaskProgressController {
     constructor(private readonly taskProgressService: TaskProgressService) { }
 
+    @Post(':id/complete')
+    completeTask(@Param('id') id: string) {
+        return this.taskProgressService.completeTask(id);
+    }
+
+    @Post(':id/start')
+    startTask(@Param('id') id: string) {
+        return this.taskProgressService.startTask(id);
+    }
+
+    @Post(':id/stop')
+    stopTask(@Param('id') id: string) {
+        return this.taskProgressService.stopTask(id);
+    }
+    
     @Post()
     create(@Body() createTaskDto: CreateTaskProgressDto) {
         console.log('Creating progress task', CreateTaskProgressDto);
@@ -59,20 +74,5 @@ export class TaskProgressController {
     @Delete(':id')
     remove(@Param('id') id: string) {
         return this.taskProgressService.remove(id);
-    }
-
-    @Post(':id/complete')
-    completeTask(@Param('id') id: string) {
-        return this.taskProgressService.completeTask(id);
-    }
-
-    @Post(':id/start')
-    startTask(@Param('id') id: string) {
-        return this.taskProgressService.startTask(id);
-    }
-
-    @Post(':id/stop')
-    stopTask(@Param('id') id: string) {
-        return this.taskProgressService.stopTask(id);
     }
 }
