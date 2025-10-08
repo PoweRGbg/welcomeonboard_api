@@ -19,12 +19,6 @@ export class TaskProgress {
 
     @Prop()
     isCompleted: boolean;
-
-    @Prop({ required: true, type: Date })
-    startedAt: Date;
-
-    @Prop({ required: false, type: Date })
-    completedAt?: Date;
 }
 
 export const TaskProgressSchema = SchemaFactory.createForClass(TaskProgress);
