@@ -28,12 +28,4 @@ export class CreateTaskProgressDto {
     @IsNotEmpty()
     @IsBoolean()
     isCompleted: boolean;
-
-    @IsOptional()
-    @IsDateString()
-    startedAt?: string;
-
-    @IsOptional()
-    @IsDateString()
-    completedAt?: string;
 }
