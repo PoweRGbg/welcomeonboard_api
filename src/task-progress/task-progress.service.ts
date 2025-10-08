@@ -10,8 +10,6 @@ export class TaskProgressService {
     constructor(@InjectModel(TaskProgress.name) private taskProgressModel: Model<TaskProgressDocument>) { }
 
     async create(createTaskProgressDto: CreateTaskProgressDto): Promise<TaskProgress> {
-        console.log('Creating task progress with data:', createTaskProgressDto);
-
         const createdTask = new this.taskProgressModel(createTaskProgressDto);
         console.log('Created task instance:', createdTask);
         
@@ -48,15 +46,11 @@ export class TaskProgressService {
     }
 
     async update(id: string, updateTaskProgressDto: UpdateTaskProgressDto): Promise <TaskProgress> {
-        // Generate unique IDs for new actions
-        
         const progressToUpdate = await this.taskProgressModel.findOne({ taskId: id });
         
         let newProgress: CreateTaskProgressDto;
 
         if (progressToUpdate) {
-            console.log('Got data:', progressToUpdate);
-            
             newProgress = {
                 taskId: id,
                 userId: updateTaskProgressDto.userId,
@@ -69,18 +63,13 @@ export class TaskProgressService {
             this.create(newProgress);
         }
 
-        console.log('Replacing with:', newProgress);
-        
-
         const updatedTask = await this.taskProgressModel
             .findOneAndUpdate({ taskId: id }, newProgress)
             .exec();
 
         if (!updatedTask) {
             throw new NotFoundException('Task not found');
-        } else {
-            console.log('Task updated', updatedTask);
-        }
+        } 
 
         return updatedTask;
     }
