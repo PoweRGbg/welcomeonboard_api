@@ -94,7 +94,6 @@ export class TaskProgressService {
             throw new NotFoundException('Task not found');
         }
 
-        taskProgress.completedAt = new Date();
         taskProgress.isCompleted = true;
 
         return taskProgress.save();
