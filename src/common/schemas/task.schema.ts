@@ -33,9 +33,6 @@ export class Task {
     @Prop()
     lastCompletedAt?: Date;
 
-    @Prop({ default: false })
-    isInProgress: boolean;
-
     @Prop()
     createdAt: Date;
 

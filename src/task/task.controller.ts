@@ -57,14 +57,4 @@ export class TaskController {
     completeTask(@Param('id') id: string) {
         return this.taskService.completeTask(id);
     }
-
-    @Post(':id/start')
-    startTask(@Param('id') id: string) {
-        return this.taskService.startTask(id);
-    }
-
-    @Post(':id/stop')
-    stopTask(@Param('id') id: string) {
-        return this.taskService.stopTask(id);
-    }
 }

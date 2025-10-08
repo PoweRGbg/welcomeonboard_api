@@ -93,28 +93,7 @@ export class TaskService {
 
         task.completionCount += 1;
         task.lastCompletedAt = new Date();
-        task.isInProgress = false;
 
-        return task.save();
-    }
-
-    async startTask(id: string): Promise<Task> {
-        const task = await this.taskModel.findById(id).exec();
-        if (!task) {
-            throw new NotFoundException('Task not found');
-        }
-
-        task.isInProgress = true;
-        return task.save();
-    }
-
-    async stopTask(id: string): Promise<Task> {
-        const task = await this.taskModel.findById(id).exec();
-        if (!task) {
-            throw new NotFoundException('Task not found');
-        }
-
-        task.isInProgress = false;
         return task.save();
     }
 }

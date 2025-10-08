@@ -97,7 +97,6 @@ npm run start:prod
 - isActive: boolean
 - completionCount: number
 - lastCompletedAt?: Date
-- isInProgress: boolean
 
 ### Action
 - id: string
