@@ -26,13 +26,12 @@ export class TaskService {
     }
 
     async findAll(): Promise<Task[]> {
-        const tasks = await this.taskModel.find().populate('createdBy', 'username firstName lastName').exec();
-        return this.taskModel.find().populate('createdBy', 'username firstName lastName').exec();
+        return this.taskModel.find({}, { isInProgress: 0 }).populate('createdBy', 'username firstName lastName').exec();
     }
 
     async findOne(id: string): Promise<Task> {
         const task = await this.taskModel
-            .findById(id)
+            .findById(id, { isInProgress: 0 })
             .populate('createdBy', 'username firstName lastName')
             .exec();
 
@@ -45,14 +44,14 @@ export class TaskService {
 
     async findByUser(userId: string): Promise<Task[]> {
         return this.taskModel
-            .find({ createdBy: userId })
+            .find({ createdBy: userId }, { isInProgress: 0 })
             .populate('createdBy', 'username firstName lastName')
             .exec();
     }
 
     async findByCategory(category: string): Promise<Task[]> {
         return this.taskModel
-            .find({ category })
+            .find({ category }, { isInProgress: 0 })
             .populate('createdBy', 'username firstName lastName')
             .exec();
     }
