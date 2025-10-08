@@ -37,7 +37,7 @@ export class TaskProgressService {
 
     async findByUser(userId: string): Promise<TaskProgress[]> {
         return this.taskProgressModel
-            .find({ userId: userId }, { _id: 0, createadAt: 0, startedAt: 0 })
+            .find({ userId: userId }, { _id: 0, createadAt: 0, startedAt: 0, __v: 0 })
             .exec();
     }
 
@@ -55,6 +55,8 @@ export class TaskProgressService {
         let newProgress: CreateTaskProgressDto;
 
         if (progressToUpdate) {
+            console.log('Got data:', progressToUpdate);
+            
             newProgress = {
                 taskId: id,
                 userId: updateTaskProgressDto.userId,
@@ -67,8 +69,11 @@ export class TaskProgressService {
             this.create(newProgress);
         }
 
+        console.log('Replacing with:', newProgress);
+        
+
         const updatedTask = await this.taskProgressModel
-            .findOneAndUpdate({ taskId: id }, newProgress)
+            .findOneAndReplace({ taskId: id }, newProgress)
             .exec();
 
         if (!updatedTask) {
