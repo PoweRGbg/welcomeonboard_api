@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional, IsString, IsUrl, IsArray, ValidateNested, IsBoolean, IsMongoId, IsNumber } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { CreateActionDto } from './create-action.dto';
 
 export class CreateTaskDto {
@@ -15,8 +15,9 @@ export class CreateTaskDto {
     @IsString()
     category: string;
 
-    @IsString()
+    @IsUrl()
     @IsOptional()
+    @Transform(({ value }) => (value === '' ? undefined : value))
     url?: string;
 
     @IsOptional()

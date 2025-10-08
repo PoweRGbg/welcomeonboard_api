@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import { IsNotEmpty, IsOptional, IsString, IsUrl, IsBoolean } from 'class-validator';
 
 export class CreateActionDto {
@@ -14,7 +15,8 @@ export class CreateActionDto {
     description?: string;
 
     @IsOptional()
-    @IsString()
+    @IsUrl()
+    @Transform(({ value }) => (value === '' ? undefined : value))
     url?: string;
 
     @IsOptional()
