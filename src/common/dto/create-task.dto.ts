@@ -15,8 +15,8 @@ export class CreateTaskDto {
     @IsString()
     category: string;
 
+    @IsString()
     @IsOptional()
-    @IsUrl()
     url?: string;
 
     @IsOptional()

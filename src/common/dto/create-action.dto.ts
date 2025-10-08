@@ -14,7 +14,7 @@ export class CreateActionDto {
     description?: string;
 
     @IsOptional()
-    @IsUrl()
+    @IsString()
     url?: string;
 
     @IsOptional()
