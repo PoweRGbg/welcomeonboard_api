@@ -19,8 +19,7 @@ export class TaskProgressService {
     }
 
     async findAll(): Promise<TaskProgress[]> {
-        const tasks = await this.taskProgressModel.find().exec();
-        return this.taskProgressModel.find().exec();
+        return this.taskProgressModel.find({}, { createadAt: 0, startedAt: 0 }).exec();
     }
 
     async findOne(id: string): Promise<TaskProgress> {
