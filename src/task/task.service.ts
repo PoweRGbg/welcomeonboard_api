@@ -77,10 +77,12 @@ export class TaskService {
         return updatedTask;
     }
 
-    async remove(id: string): Promise<void> {
+    async remove(id: string): Promise<{ deleted: boolean }> {
         const result = await this.taskModel.findByIdAndDelete(id).exec();
         if (!result) {
             throw new NotFoundException('Task not found');
+        } else {
+            return { deleted: true };
         }
     }
 
