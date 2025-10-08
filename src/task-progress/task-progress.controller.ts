@@ -36,13 +36,14 @@ export class TaskProgressController {
         return this.taskProgressService.findAll();
     }
 
-    @Get('/task/:id')
+    @Get('/task/:userId/:taskId')
     findOne(
-        @Param('id') id: string
+        @Param('taskId') taskId: string,
+        @Param('userId') userId: string,
     ): Promise<TaskProgress> {
-        console.log('Getting progress for task id:', id);
+        console.log('Getting progress for task id:', taskId, 'user:', userId);
         
-        return this.taskProgressService.findOne(id);
+        return this.taskProgressService.findOne(userId, taskId);
     }
 
     @Patch(':id')

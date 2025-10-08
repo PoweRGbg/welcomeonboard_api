@@ -20,14 +20,13 @@ export class TaskProgressService {
         return this.taskProgressModel.find({}, { createadAt: 0, startedAt: 0 }).exec();
     }
 
-    async findOne(id: string): Promise<TaskProgress> {
+    async findOne(userId: string, taskId: string): Promise<TaskProgress> {
         const task = await this.taskProgressModel
-            // .findOne({ taskId: id }, { _id: 0, createadAt: 0, startedAt: 0 })
-            .findOne({ taskId: id }, { createadAt: 0, startedAt: 0 })
+            .findOne({ taskId, userId }, { createadAt: 0, startedAt: 0 })
             .exec();
 
         if (!task) {
-            this.createNewTaskProgress(id);
+            await this.createNewTaskProgress(taskId);
         }
 
         return task;
