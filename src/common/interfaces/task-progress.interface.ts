@@ -4,6 +4,4 @@ export interface TaskProgress {
     actionsTotal: number;
     actionsCompleted: number;
     isCompleted: boolean;
-    startedAt: Date;
-    completedAt?: Date;
 }
