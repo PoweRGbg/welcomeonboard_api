@@ -26,16 +26,6 @@ export class TaskProgressController {
         return this.taskProgressService.create(createTaskDto);
     }
 
-    @Get(':userId')
-    findAll(@Param('userId') userId: string): Promise<TaskProgress[]> {
-        console.log('getting all progress for userID', userId);
-        
-        if (userId) {
-            return this.taskProgressService.findByUser(userId);
-        }
-        return this.taskProgressService.findAll();
-    }
-
     @Get('/task/:userId/:taskId')
     findOne(
         @Param('taskId') taskId: string,
@@ -44,6 +34,16 @@ export class TaskProgressController {
         console.log('Getting progress for task id:', taskId, 'user:', userId);
         
         return this.taskProgressService.findOne(userId, taskId);
+    }
+
+    @Get(':userId')
+    findAll(@Param('userId') userId: string): Promise<TaskProgress[]> {
+        console.log('getting all progress for userID', userId);
+        
+        if (userId) {
+            return this.taskProgressService.findByUser(userId);
+        }
+        return this.taskProgressService.findAll();
     }
 
     @Patch(':id')
