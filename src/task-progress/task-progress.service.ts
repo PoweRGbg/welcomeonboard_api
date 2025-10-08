@@ -53,7 +53,6 @@ export class TaskProgressService {
         const progressToUpdate = await this.taskProgressModel.findOne({ taskId: id });
         
         let newProgress: CreateTaskProgressDto;
-        this.updateTimestamps(progressToUpdate.taskId);
 
         if (progressToUpdate) {
             console.log('Got data:', progressToUpdate);
@@ -84,15 +83,6 @@ export class TaskProgressService {
         }
 
         return updatedTask;
-    
-    }
-
-    async updateTimestamps(id: string): Promise<TaskProgress> {
-        const task = await this.taskProgressModel.findOne({ taskId: id });
-        if (task) {
-            return task.save();
-        }
-        return task;
     }
 
     async remove(id: string): Promise<void> {
