@@ -1,11 +1,8 @@
 import {
     IsNotEmpty,
-    IsOptional,
     IsString,
     IsBoolean,
     IsNumber,
-    IsDate,
-    IsDateString
 } from 'class-validator';
 
 export class CreateTaskProgressDto {
