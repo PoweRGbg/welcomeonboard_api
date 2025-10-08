@@ -73,7 +73,7 @@ export class TaskProgressService {
         
 
         const updatedTask = await this.taskProgressModel
-            .findOneAndReplace({ taskId: id }, newProgress)
+            .findOneAndReplace({ taskId: id }, newProgress, { new: true })
             .exec();
 
         if (!updatedTask) {
