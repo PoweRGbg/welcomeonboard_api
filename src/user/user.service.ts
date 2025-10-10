@@ -79,8 +79,8 @@ export class UserService {
         }
     }
     
-    async getDepartments(): Promise<User[]> {
-        return this.userModel.find().select('department').exec();
+    async getDepartments(): Promise<string[]> {
+        return this.userModel.find().distinct('department').exec();
     }
 
     async validatePassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
