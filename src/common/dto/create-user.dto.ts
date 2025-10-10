@@ -15,10 +15,6 @@ export class CreateUserDto {
     @IsEmail()
     email: string;
 
-    @IsOptional()
-    @IsEnum(UserRole)
-    role?: UserRole;
-
     @IsNotEmpty()
     @IsString()
     firstName: string;
@@ -26,6 +22,14 @@ export class CreateUserDto {
     @IsNotEmpty()
     @IsString()
     lastName: string;
+    
+    @IsOptional()
+    @IsEnum(UserRole)
+    role?: UserRole;
+
+    @IsOptional()
+    @IsString()
+    department?: string;
 
     @IsOptional()
     isActive?: boolean;
