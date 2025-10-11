@@ -13,7 +13,7 @@ export class CreateTaskDto {
 
     @IsNotEmpty()
     @IsString()
-    category: string;
+    department: string;
 
     @IsUrl()
     @IsOptional()
