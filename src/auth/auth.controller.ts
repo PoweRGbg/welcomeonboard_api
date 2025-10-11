@@ -17,4 +17,10 @@ export class AuthController {
     getProfile(@Request() req) {
         return req.user;
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('extend-session')
+    extendSession(@Body() userData: { token: string, userId: string }) {
+        return this.authService.extendSession(userData.token, userData.userId);
+    }
 }

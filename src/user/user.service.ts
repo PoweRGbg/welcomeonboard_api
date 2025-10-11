@@ -41,7 +41,7 @@ export class UserService {
     async findOne(id: string): Promise<User> {
         const user = await this.userModel.findById(id).select('-password').exec();
         if (!user) {
-            throw new NotFoundException('User not found');
+            throw new NotFoundException('User not found in database', id);
         }
         return user;
     }
@@ -77,6 +77,10 @@ export class UserService {
         if (!result) {
             throw new NotFoundException('User not found');
         }
+    }
+    
+    async getDepartments(): Promise<string[]> {
+        return this.userModel.find().distinct('department').exec();
     }
 
     async validatePassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
