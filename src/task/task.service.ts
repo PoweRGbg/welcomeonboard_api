@@ -49,9 +49,9 @@ export class TaskService {
             .exec();
     }
 
-    async findByCategory(category: string): Promise<Task[]> {
+    async findByDepartment(department: string): Promise<Task[]> {
         return this.taskModel
-            .find({ category }, { isInProgress: 0 })
+            .find({ department }, { isInProgress: 0 })
             .populate('createdBy', 'username firstName lastName')
             .exec();
     }

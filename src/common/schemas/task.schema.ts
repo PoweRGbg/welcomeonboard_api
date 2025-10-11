@@ -13,7 +13,7 @@ export class Task {
     description?: string;
 
     @Prop({ required: true })
-    category: string;
+    department: string;
 
     @Prop()
     url?: string;

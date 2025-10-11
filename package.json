@@ -1,6 +1,6 @@
 {
     "name": "welcomonboard-api",
-    "version": "0.0.20",
+    "version": "0.0.21",
     "description": "Backend REST API for WelcomeOnboard task management system",
     "author": "",
     "private": true,

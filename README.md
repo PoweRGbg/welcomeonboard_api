@@ -62,7 +62,7 @@ npm run start:prod
 - `POST /tasks` - Create task (protected)
 - `GET /tasks` - Get all tasks (protected)
 - `GET /tasks?userId=:id` - Get tasks by user (protected)
-- `GET /tasks?category=:category` - Get tasks by category (protected)
+- `GET /tasks?department=:department` - Get tasks by department (protected)
 - `GET /tasks/:id` - Get task by ID (protected)
 - `PATCH /tasks/:id` - Update task (protected)
 - `DELETE /tasks/:id` - Delete task (protected)
@@ -88,7 +88,7 @@ npm run start:prod
 - id: string
 - name: string
 - description?: string
-- category: string
+- department?: string
 - url?: string
 - actions?: Action[]
 - createdBy: string (User ID)

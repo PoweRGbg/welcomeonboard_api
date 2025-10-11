@@ -4,7 +4,7 @@ export interface Task {
     id: string;
     name: string;
     description?: string;
-    category: string;
+    department?: string;
     url?: string;
     actions?: Action[];
     createdBy: string;

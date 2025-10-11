@@ -27,12 +27,12 @@ export class TaskController {
     }
 
     @Get()
-    findAll(@Query('userId') userId?: string, @Query('category') category?: string) {
+    findAll(@Query('userId') userId?: string, @Query('department') department?: string) {
         if (userId) {
             return this.taskService.findByUser(userId);
         }
-        if (category) {
-            return this.taskService.findByCategory(category);
+        if (department) {
+            return this.taskService.findByDepartment(department);
         }
         
         return this.taskService.findAll();

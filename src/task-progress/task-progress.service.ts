@@ -38,12 +38,6 @@ export class TaskProgressService {
             .exec();
     }
 
-    async findByCategory(category: string): Promise<TaskProgress[]> {
-        return this.taskProgressModel
-            .find({ category })
-            .exec();
-    }
-
     async update(id: string, updateTaskProgressDto: UpdateTaskProgressDto): Promise <TaskProgress> {
         const progressToUpdate = await this.taskProgressModel.findOne({ taskId: id });
         
