@@ -3,7 +3,6 @@ import {
     IsString,
     IsBoolean,
     IsNumber,
-    IsDate,
     IsOptional,
 } from 'class-validator';
 
@@ -29,6 +28,6 @@ export class CreateTaskProgressDto {
     isCompleted: boolean;
 
     @IsOptional()
-    @IsDate()
+    @IsString()
     startedOn?: Date;
 }
