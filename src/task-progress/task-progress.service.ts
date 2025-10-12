@@ -50,6 +50,7 @@ export class TaskProgressService {
                 actionsTotal: updateTaskProgressDto.actionsTotal,
                 actionsCompleted: updateTaskProgressDto.actionsCompleted,
                 isCompleted: updateTaskProgressDto.actionsCompleted === updateTaskProgressDto.actionsTotal,
+                startedOn: updateTaskProgressDto.startedOn ?? new Date(),
             };
         } else {
             newProgress = await this.createNewTaskProgress(updateTaskProgressDto);

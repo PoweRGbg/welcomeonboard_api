@@ -3,6 +3,8 @@ import {
     IsString,
     IsBoolean,
     IsNumber,
+    IsDate,
+    IsOptional,
 } from 'class-validator';
 
 export class CreateTaskProgressDto {
@@ -25,4 +27,8 @@ export class CreateTaskProgressDto {
     @IsNotEmpty()
     @IsBoolean()
     isCompleted: boolean;
+
+    @IsOptional()
+    @IsDate()
+    startedOn?: Date;
 }
