@@ -63,6 +63,7 @@ export class AuthService {
         const tokenIsValid = await this.jwtService.verify(token);
         const user = await this.userService.findOne(userId);
         if (!tokenIsValid || !user) {
+            console.log('Invalid session for user', userId, 'token:', tokenIsValid, 'userId', userId);
             throw new UnauthorizedException('ExtendSession: Invalid token or user', userId);
         }
         
