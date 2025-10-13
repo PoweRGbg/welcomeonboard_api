@@ -49,7 +49,7 @@ npm run start:prod
 
 ### Authentication
 - `POST /auth/login` - User login
-- `GET /auth/profile` - Get user profile (protected)
+- `POST /auth/extend-session` - User login
 
 ### Users
 - `POST /users` - Create user
