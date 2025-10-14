@@ -59,5 +59,6 @@ export class CreateTaskDto {
 
     @IsOptional()
     @IsDate()
+    @Type(() => Date)
     dueDate?: Date;
 }
