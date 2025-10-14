@@ -52,7 +52,6 @@ export class AuthService {
                 username: user.username,
                 email: user.email,
                 role: user.role,
-                expires: Date.now() + 1000 * 60 * 5,
                 firstName: user.firstName,
                 lastName: user.lastName,
             },

@@ -3,6 +3,14 @@ import { Document, Types } from 'mongoose';
 import { Action, ActionSchema } from './action.schema';
 
 export type TaskDocument = Task & Document;
+export enum RecurringTaskPeriod {
+    NONE = 'None',
+    DAILY = 'Daily',
+    WEEKLY = 'Weekly',
+    MONTHLY = 'Monthly',
+    YEARLY = 'Yearly',
+    CUSTOM = 'Custom',
+};
 
 @Schema({ timestamps: true })
 export class Task {
@@ -38,6 +46,12 @@ export class Task {
 
     @Prop()
     updatedAt: Date;
+
+    @Prop()
+    recurring?: RecurringTaskPeriod;
+    
+    @Prop()
+    dueDate?: Date;  
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);

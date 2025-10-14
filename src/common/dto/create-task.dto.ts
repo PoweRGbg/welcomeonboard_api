@@ -1,4 +1,15 @@
-import { IsNotEmpty, IsOptional, IsString, IsUrl, IsArray, ValidateNested, IsBoolean, IsMongoId, IsNumber } from 'class-validator';
+import { 
+    IsNotEmpty,
+    IsOptional,
+    IsString,
+    IsUrl,
+    IsArray,
+    ValidateNested,
+    IsBoolean,
+    IsMongoId,
+    IsNumber,
+    IsDate
+} from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 import { CreateActionDto } from './create-action.dto';
 
@@ -41,4 +52,12 @@ export class CreateTaskDto {
     @IsOptional()
     @IsBoolean()
     isCompleted?: number;
+
+    @IsOptional()
+    @IsString()
+    recurring?: string;
+
+    @IsOptional()
+    @IsDate()
+    dueDate?: Date;
 }
