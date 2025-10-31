@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { TaskModule } from './task/task.module';
 import { TaskProgressModule } from './task-progress/task-progress.module';
 import { AuthModule } from './auth/auth.module';
+import { SuggestionsModule } from './suggestions/suggestions.module';
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
         MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/welcomonboard'),
         UserModule,
         TaskModule,
+        SuggestionsModule,
         TaskProgressModule,
         AuthModule,
     ],

@@ -10,4 +10,4 @@ import { Task, TaskSchema } from '../common/schemas/task.schema';
     providers: [SuggestionsService],
     exports: [SuggestionsService],
 })
-export class TaskModule { }
+export class SuggestionsModule { }
