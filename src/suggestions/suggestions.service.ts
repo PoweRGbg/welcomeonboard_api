@@ -1,13 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Task, TaskDocument } from '../common/schemas/task.schema';
+import { Task } from '../common/schemas/task.schema';
 import { CreateTaskDto } from '../common/dto/create-task.dto';
 import { UpdateTaskDto } from '../common/dto/update-task.dto';
+import { TaskSuggestionDocument } from 'src/common/schemas/suggestion.schema';
 
 @Injectable()
 export class SuggestionsService {
-    constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) { }
+    constructor(@InjectModel(Task.name) private taskModel: Model<TaskSuggestionDocument>) { }
 
     async create(createTaskDto: CreateTaskDto): Promise<Task> {
         // Generate unique IDs for actions
