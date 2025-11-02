@@ -23,10 +23,10 @@ export class TaskSuggestion {
     actions?: Action[];
 
     @Prop({ required: true, type: Types.ObjectId, ref: 'User' })
-    createdBy: string;
+    suggestedBy: string;
 
-    @Prop({ default: true })
-    isActive: boolean;
+    @Prop({ default: 'pending' })
+    status: string;
 
     @Prop({ default: 0 })
     completionCount: number;
