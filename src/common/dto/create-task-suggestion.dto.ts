@@ -8,7 +8,8 @@ import {
     IsBoolean,
     IsMongoId,
     IsNumber,
-    IsDate
+    IsDate,
+    isString
 } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 import { CreateActionDto } from './create-action.dto';
@@ -25,6 +26,10 @@ export class CreateTaskSuggestionDto {
     @IsNotEmpty()
     @IsString()
     department: string;
+
+    @IsOptional()
+    @IsString()
+    status?: string;
 
     @IsUrl()
     @IsOptional()
@@ -61,4 +66,13 @@ export class CreateTaskSuggestionDto {
     @IsDate()
     @Type(() => Date)
     dueDate?: Date;
+
+    @IsOptional()
+    @IsDate()
+    @Type(() => Date)
+    reviewedAt?: Date;
+    
+    @IsOptional()
+    @IsString()
+    reviewedBy?: Date;
 }

@@ -10,10 +10,9 @@ import {
     Query,
 } from '@nestjs/common';
 import { SuggestionsService } from './suggestions.service';
-import { CreateTaskDto } from '../common/dto/create-task.dto';
-import { UpdateTaskDto } from '../common/dto/update-task.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateTaskSuggestionDto } from 'src/common/dto/create-task-suggestion.dto';
+import { UpdateTaskSuggestionDto } from 'src/common/dto/update-task-suggestion.dto';
 
 @Controller('task-suggestions')
 @UseGuards(JwtAuthGuard)
@@ -47,7 +46,7 @@ export class SuggestionsController {
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+    update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskSuggestionDto) {
         return this.taskService.update(id, updateTaskDto);
     }
 
