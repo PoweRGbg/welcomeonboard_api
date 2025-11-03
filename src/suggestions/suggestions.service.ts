@@ -10,8 +10,6 @@ export class SuggestionsService {
     constructor(@InjectModel(TaskSuggestion.name) private suggestionModel: Model<TaskSuggestionDocument>) { }
 
     async create(createTaskDto: CreateTaskSuggestionDto): Promise<TaskSuggestion> {
-        console.log('Creating suggestion ', createTaskDto);
-        
         // Generate unique IDs for actions
         if (createTaskDto.actions) {
             createTaskDto.actions = createTaskDto.actions.map(action => ({
@@ -20,12 +18,11 @@ export class SuggestionsService {
             }));
         }
 
-        const createdTask = new this.suggestionModel({
+        const createdTaskSuggestion = new this.suggestionModel({
             ...createTaskDto,
             id: new Object
         });
-        const result = createdTask.save();
-        console.log('Created task suggestion:', result);
+        const result = createdTaskSuggestion.save();
         return result;
     }
 
@@ -41,7 +38,7 @@ export class SuggestionsService {
             .exec();
 
         if (!task) {
-            throw new NotFoundException('Task not found');
+            throw new NotFoundException('Task suggestionnot found');
         }
 
         return task;
@@ -70,22 +67,22 @@ export class SuggestionsService {
             }));
         }
 
-        const updatedTask = await this.suggestionModel
+        const updatedTaskSuggestion = await this.suggestionModel
             .findByIdAndUpdate(id, updateTaskDto, { new: true })
             .populate('suggestedBy', 'username firstName lastName')
             .exec();
 
-        if (!updatedTask) {
-            throw new NotFoundException('Task not found');
+        if (!updatedTaskSuggestion) {
+            throw new NotFoundException('Task suggestionnot found');
         }
 
-        return updatedTask;
+        return updatedTaskSuggestion;
     }
 
     async remove(id: string): Promise<{ deleted: boolean }> {
         const result = await this.suggestionModel.findByIdAndDelete(id).exec();
         if (!result) {
-            throw new NotFoundException('Task not found');
+            throw new NotFoundException('Task suggestion not found');
         } else {
             return { deleted: true };
         }
@@ -94,7 +91,7 @@ export class SuggestionsService {
     async completeTask(id: string): Promise<TaskSuggestion> {
         const task = await this.suggestionModel.findById(id).exec();
         if (!task) {
-            throw new NotFoundException('Task not found');
+            throw new NotFoundException('Task suggestion not found');
         }
 
         task.completionCount += 1;
