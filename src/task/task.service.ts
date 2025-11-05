@@ -56,6 +56,13 @@ export class TaskService {
             .exec();
     }
 
+    async findByName(name: string): Promise<Task[]> {
+        return this.taskModel
+            .find({ name: { $regex: name, $options: 'i' } }, { isInProgress: 0 })
+            .populate('createdBy', 'username firstName lastName')
+            .exec();
+    }
+
     async update(id: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
         // Generate unique IDs for new actions
         if (updateTaskDto.actions) {
