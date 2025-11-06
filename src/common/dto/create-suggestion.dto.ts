@@ -46,6 +46,10 @@ export class CreateTaskSuggestionDto {
 
     @IsOptional()
     @IsString()
+    status?: string;
+
+    @IsOptional()
+    @IsString()
     recurring?: string;
 
     @IsOptional()
