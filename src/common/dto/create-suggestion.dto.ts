@@ -40,6 +40,10 @@ export class CreateTaskSuggestionDto {
     @IsMongoId()
     suggestedBy: string;
 
+    @IsNotEmpty()
+    @IsMongoId()
+    reviewedBy: string;
+
     @IsOptional()
     @IsBoolean()
     isActive?: boolean;
@@ -56,4 +60,9 @@ export class CreateTaskSuggestionDto {
     @IsDate()
     @Type(() => Date)
     dueDate?: Date;
+
+    @IsOptional()
+    @IsDate()
+    @Type(() => Date)
+    reviewedAt?: Date;
 }
