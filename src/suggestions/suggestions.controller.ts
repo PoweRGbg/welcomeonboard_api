@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { SuggestionsService } from './suggestions.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { UpdateTaskSuggestionDto } from 'src/common/dto/update-suggestion.dto';
-import { CreateTaskSuggestionDto } from 'src/common/dto/create-suggestion.dto';
+import { UpdateTaskSuggestionDto } from 'src/common/dto/update-task-suggestion.dto';
+import { CreateTaskSuggestionDto } from 'src/common/dto/create-task-suggestion.dto';
 
 @Controller('task-suggestions')
 @UseGuards(JwtAuthGuard)

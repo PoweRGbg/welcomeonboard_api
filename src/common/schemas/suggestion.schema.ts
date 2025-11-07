@@ -45,6 +45,12 @@ export class TaskSuggestion {
     
     @Prop()
     dueDate?: Date;  
+    
+    @Prop()
+    reviewedBy?: string;  
+    
+    @Prop()
+    reviewedAt?: Date;  
 }
 
 export const TaskSuggestionSchema = SchemaFactory.createForClass(TaskSuggestion);
