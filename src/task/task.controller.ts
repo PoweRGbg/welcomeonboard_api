@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from '../common/dto/create-task.dto';
-import { UpdateTaskDto } from '../common/dto/update-task.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('tasks')
@@ -36,6 +35,11 @@ export class TaskController {
         }
         
         return this.taskService.findAll();
+    }
+
+    @Get('/names')
+    findAllNames(): Promise<string[]> {
+        return this.taskService.findAllNames();
     }
 
     @Get(':id')

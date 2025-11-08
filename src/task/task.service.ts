@@ -29,6 +29,10 @@ export class TaskService {
         return this.taskModel.find({}, { isInProgress: 0 }).populate('createdBy', 'username firstName lastName').exec();
     }
 
+    async findAllNames(): Promise<string[]> {
+        return this.taskModel.find({}, { name: 1, _id: 0 }).distinct('name').exec();
+    }
+
     async findOne(id: string): Promise<Task> {
         const task = await this.taskModel
             .findById(id, { isInProgress: 0 })
