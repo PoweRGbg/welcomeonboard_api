@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { UpdateTaskDto } from '../common/dto/update-task.dto';
 import { TaskSuggestion, TaskSuggestionDocument } from 'src/common/schemas/suggestion.schema';
 import { CreateTaskSuggestionDto } from 'src/common/dto/create-task-suggestion.dto';
+import { getLoggerDate } from 'src/common/helpers';
 
 @Injectable()
 export class SuggestionsService {
@@ -38,7 +39,7 @@ export class SuggestionsService {
             .exec();
 
         if (!task) {
-            throw new NotFoundException('Task suggestionnot found');
+            throw new NotFoundException(`${getLoggerDate()} Task suggestionnot found`);
         }
 
         return task;
@@ -73,7 +74,7 @@ export class SuggestionsService {
             .exec();
 
         if (!updatedTaskSuggestion) {
-            throw new NotFoundException('Task suggestionnot found');
+            throw new NotFoundException(`${getLoggerDate()} Task suggestionnot found`);
         }
 
         return updatedTaskSuggestion;
@@ -82,7 +83,7 @@ export class SuggestionsService {
     async remove(id: string): Promise<{ deleted: boolean }> {
         const result = await this.suggestionModel.findByIdAndDelete(id).exec();
         if (!result) {
-            throw new NotFoundException('Task suggestion not found');
+            throw new NotFoundException(`${getLoggerDate()} Task suggestion not found`);
         } else {
             return { deleted: true };
         }
@@ -91,7 +92,7 @@ export class SuggestionsService {
     async completeTask(id: string): Promise<TaskSuggestion> {
         const task = await this.suggestionModel.findById(id).exec();
         if (!task) {
-            throw new NotFoundException('Task suggestion not found');
+            throw new NotFoundException(`${getLoggerDate()} Task suggestion not found`);
         }
 
         task.completionCount += 1;

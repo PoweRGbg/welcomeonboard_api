@@ -13,7 +13,7 @@ export class TaskProgressService {
     async create(createTaskProgressDto: CreateTaskProgressDto): Promise<TaskProgress> {
         const createdTask = new this.taskProgressModel(createTaskProgressDto);
         console.log(getLoggerDate(), 'Created task instance:', createdTask);
-        
+
         return createdTask.save();
     }
 
@@ -39,9 +39,9 @@ export class TaskProgressService {
             .exec();
     }
 
-    async update(id: string, updateTaskProgressDto: UpdateTaskProgressDto): Promise <TaskProgress> {
+    async update(id: string, updateTaskProgressDto: UpdateTaskProgressDto): Promise<TaskProgress> {
         const progressToUpdate = await this.taskProgressModel.findOne({ taskId: id });
-        
+
         let newProgress: CreateTaskProgressDto;
 
         if (progressToUpdate) {
@@ -63,8 +63,8 @@ export class TaskProgressService {
             .exec();
 
         if (!updatedTask) {
-            throw new NotFoundException('Task not found');
-        } 
+            throw new NotFoundException(`${getLoggerDate()} Task not found`);
+        }
 
         return updatedTask;
     }
@@ -72,14 +72,14 @@ export class TaskProgressService {
     async remove(id: string): Promise<void> {
         const result = await this.taskProgressModel.findByIdAndDelete(id).exec();
         if (!result) {
-            throw new NotFoundException('Task not found');
+            throw new NotFoundException(`${getLoggerDate()} Task not found`);
         }
     }
 
     async completeTask(id: string): Promise<TaskProgress> {
         const taskProgress = await this.taskProgressModel.findById(id).exec();
         if (!taskProgress) {
-            throw new NotFoundException('Task not found');
+            throw new NotFoundException(`${getLoggerDate()} Task not found`);
         }
 
         taskProgress.isCompleted = true;
@@ -90,7 +90,7 @@ export class TaskProgressService {
     async startTask(id: string): Promise<TaskProgress> {
         const taskProgress = await this.taskProgressModel.findById(id).exec();
         if (!taskProgress) {
-            throw new NotFoundException('Task not found');
+            throw new NotFoundException(`${getLoggerDate()} Task not found`);
         }
 
         taskProgress.isCompleted = false;
@@ -100,7 +100,7 @@ export class TaskProgressService {
     async stopTask(id: string): Promise<TaskProgress> {
         const taskProgress = await this.taskProgressModel.findById(id).exec();
         if (!taskProgress) {
-            throw new NotFoundException('Task not found');
+            throw new NotFoundException(`${getLoggerDate()} Task not found`);
         }
 
         taskProgress.isCompleted = false;

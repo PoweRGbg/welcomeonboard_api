@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Task, TaskDocument } from '../common/schemas/task.schema';
 import { CreateTaskDto } from '../common/dto/create-task.dto';
 import { UpdateTaskDto } from '../common/dto/update-task.dto';
+import { getLoggerDate } from 'src/common/helpers';
 
 @Injectable()
 export class TaskService {
@@ -40,7 +41,7 @@ export class TaskService {
             .exec();
 
         if (!task) {
-            throw new NotFoundException('Task not found');
+            throw new NotFoundException(`${getLoggerDate()} Task not found`);
         }
 
         return task;
@@ -82,7 +83,7 @@ export class TaskService {
             .exec();
 
         if (!updatedTask) {
-            throw new NotFoundException('Task not found');
+            throw new NotFoundException(`${getLoggerDate()} Task not found`);
         }
 
         return updatedTask;
@@ -91,7 +92,7 @@ export class TaskService {
     async remove(id: string): Promise<{ deleted: boolean }> {
         const result = await this.taskModel.findByIdAndDelete(id).exec();
         if (!result) {
-            throw new NotFoundException('Task not found');
+            throw new NotFoundException(`${getLoggerDate()} Task not found`);
         } else {
             return { deleted: true };
         }
@@ -100,10 +101,10 @@ export class TaskService {
     async completeTask(id: string, userId: string): Promise<Task> {
         const task = await this.taskModel.findById(id).exec();
         if (!task) {
-            throw new NotFoundException('Task not found');
+            throw new NotFoundException(`${getLoggerDate()} Task not found`);
         }
 
-        task.completetions.push({ userId, date: new Date() }); 
+        task.completetions.push({ userId, date: new Date() });
         return task.save();
     }
 }

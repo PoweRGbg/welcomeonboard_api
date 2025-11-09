@@ -5,6 +5,7 @@ import * as bcrypt from 'bcryptjs';
 import { User, UserDocument } from '../common/schemas/user.schema';
 import { CreateUserDto } from '../common/dto/create-user.dto';
 import { UpdateUserDto } from '../common/dto/update-user.dto';
+import { getLoggerDate } from 'src/common/helpers';
 
 @Injectable()
 export class UserService {
@@ -20,7 +21,7 @@ export class UserService {
         });
 
         if (existingUser) {
-            throw new ConflictException('User with this email or username already exists');
+            throw new ConflictException(`${getLoggerDate()} User with this email or username already exists`);
         }
 
         // Hash password
@@ -41,7 +42,7 @@ export class UserService {
     async findOne(id: string): Promise<User> {
         const user = await this.userModel.findById(id).select('-password').exec();
         if (!user) {
-            throw new NotFoundException('User not found in database', id);
+            throw new NotFoundException(`${getLoggerDate()} User not found in database`, id);
         }
         return user;
     }
@@ -50,7 +51,7 @@ export class UserService {
         return this.userModel.findOne({ username }).exec();
     }
 
-    async findByEmail(email: string): Promise<User | null> {        
+    async findByEmail(email: string): Promise<User | null> {
         return this.userModel.findOne({ email }).exec();
     }
 
@@ -66,7 +67,7 @@ export class UserService {
             .exec();
 
         if (!updatedUser) {
-            throw new NotFoundException('User not found');
+            throw new NotFoundException(`${getLoggerDate()} User not found`);
         }
 
         return updatedUser;
@@ -75,10 +76,10 @@ export class UserService {
     async remove(id: string): Promise<void> {
         const result = await this.userModel.findByIdAndDelete(id).exec();
         if (!result) {
-            throw new NotFoundException('User not found');
+            throw new NotFoundException(`${getLoggerDate()} User not found`);
         }
     }
-    
+
     async getDepartments(): Promise<string[]> {
         return this.userModel.find().distinct('department').exec();
     }
