@@ -12,6 +12,8 @@ import {
 import { TaskService } from './task.service';
 import { CreateTaskDto } from '../common/dto/create-task.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { use } from 'passport';
+import { getLoggerDate } from 'src/common/helpers';
 
 @Controller('tasks')
 @UseGuards(JwtAuthGuard)
@@ -20,7 +22,7 @@ export class TaskController {
 
     @Post()
     create(@Body() createTaskDto: CreateTaskDto) {
-        console.log('Creating task', createTaskDto.name, 'from ', createTaskDto.createdBy);
+        console.log(getLoggerDate(), 'Creating task', createTaskDto.name, 'from ', createTaskDto.createdBy);
         
         return this.taskService.create(createTaskDto);
     }
@@ -58,7 +60,7 @@ export class TaskController {
     }
 
     @Post(':id/complete')
-    completeTask(@Param('id') id: string) {
-        return this.taskService.completeTask(id);
+    completeTask(@Param('id') id: string, @Body() body: { userId: string }) {
+        return this.taskService.completeTask(id, body.userId);
     }
 }

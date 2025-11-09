@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { TaskProgress, TaskProgressDocument } from 'src/common/schemas/task-progress.schema';
 import { CreateTaskProgressDto } from 'src/common/dto/create-task-progress.dto';
 import { UpdateTaskProgressDto } from 'src/common/dto/update-task-progress.dto';
+import { getLoggerDate } from 'src/common/helpers';
 
 @Injectable()
 export class TaskProgressService {
@@ -11,7 +12,7 @@ export class TaskProgressService {
 
     async create(createTaskProgressDto: CreateTaskProgressDto): Promise<TaskProgress> {
         const createdTask = new this.taskProgressModel(createTaskProgressDto);
-        console.log('Created task instance:', createdTask);
+        console.log(getLoggerDate(), 'Created task instance:', createdTask);
         
         return createdTask.save();
     }

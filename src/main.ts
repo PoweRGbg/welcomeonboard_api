@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { getLoggerDate } from './common/helpers';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -17,6 +18,6 @@ async function bootstrap() {
 
     const port = process.env.PORT || 3030;
     await app.listen(port);
-    console.log(`Application is running on: http://localhost:${port}`);
+    console.log(`${getLoggerDate()} Application is running on: http://localhost:${port}`);
 }
 bootstrap();

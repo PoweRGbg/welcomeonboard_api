@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { Action, ActionSchema } from './action.schema';
-import { RecurringTaskPeriod } from './task.schema';
+import { RecurringTaskPeriod } from '../enums/recuring-task-period.enum';
 
 export type TaskSuggestionDocument = TaskSuggestion & Document;
 

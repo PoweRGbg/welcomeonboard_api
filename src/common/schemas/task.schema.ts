@@ -1,16 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { Action, ActionSchema } from './action.schema';
+import { RecurringTaskPeriod } from '../enums/recuring-task-period.enum';
 
 export type TaskDocument = Task & Document;
-export enum RecurringTaskPeriod {
-    NONE = 'None',
-    DAILY = 'Daily',
-    WEEKLY = 'Weekly',
-    MONTHLY = 'Monthly',
-    YEARLY = 'Yearly',
-    CUSTOM = 'Custom',
-};
 
 @Schema({ timestamps: true })
 export class Task {
@@ -35,12 +28,6 @@ export class Task {
     @Prop({ default: true })
     isActive: boolean;
 
-    @Prop({ default: 0 })
-    completionCount: number;
-
-    @Prop()
-    lastCompletedAt?: Date;
-
     @Prop()
     createdAt: Date;
 
@@ -48,10 +35,16 @@ export class Task {
     updatedAt: Date;
 
     @Prop()
+    updatedBy?: string;
+
+    @Prop()
     recurring?: RecurringTaskPeriod;
     
     @Prop()
     dueDate?: Date;  
+    
+    @Prop({ default: [] })
+    completetions: { userId: string; date: Date }[];  
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);

@@ -97,15 +97,13 @@ export class TaskService {
         }
     }
 
-    async completeTask(id: string): Promise<Task> {
+    async completeTask(id: string, userId: string): Promise<Task> {
         const task = await this.taskModel.findById(id).exec();
         if (!task) {
             throw new NotFoundException('Task not found');
         }
 
-        task.completionCount += 1;
-        task.lastCompletedAt = new Date();
-
+        task.completetions.push({ userId, date: new Date() }); 
         return task.save();
     }
 }

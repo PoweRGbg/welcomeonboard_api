@@ -9,8 +9,9 @@ export interface Task {
     actions?: Action[];
     createdBy: string;
     createdAt: Date;
+    updatedBy?: string;
     updatedAt: Date;
     isActive: boolean;
     completionCount: number;
-    lastCompletedAt?: Date;
+    completed?: { userId: string; date: Date }[];
 }

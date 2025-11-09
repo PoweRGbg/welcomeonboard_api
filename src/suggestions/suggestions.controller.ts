@@ -13,6 +13,7 @@ import { SuggestionsService } from './suggestions.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdateTaskSuggestionDto } from 'src/common/dto/update-task-suggestion.dto';
 import { CreateTaskSuggestionDto } from 'src/common/dto/create-task-suggestion.dto';
+import { getLoggerDate } from 'src/common/helpers';
 
 @Controller('task-suggestions')
 @UseGuards(JwtAuthGuard)
@@ -26,14 +27,14 @@ export class SuggestionsController {
 
     @Get()
     findAll(@Query('userId') userId?: string, @Query('department') department?: string) {
-        console.log('Find all suggestions called with userId:', userId, 'department:', department);
+        console.log(getLoggerDate(),'Find all suggestions called with userId:', userId, 'department:', department);
         if (userId) {
             return this.taskService.findByUser(userId);
         }
         if (department) {
             return this.taskService.findByDepartment(department);
         }
-        console.log('Getting all suggestions in controller');
+        console.log(getLoggerDate(), 'Getting all suggestions in controller');
         
         return this.taskService.findAll();
     }

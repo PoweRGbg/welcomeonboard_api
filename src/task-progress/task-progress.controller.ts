@@ -13,6 +13,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateTaskProgressDto } from 'src/common/dto/create-task-progress.dto';
 import { UpdateTaskProgressDto } from 'src/common/dto/update-task-progress.dto';
 import { TaskProgress } from 'src/common/schemas/task-progress.schema';
+import { getLoggerDate } from 'src/common/helpers';
 
 @Controller('task-progress')
 @UseGuards(JwtAuthGuard)
@@ -36,7 +37,7 @@ export class TaskProgressController {
     
     @Post()
     create(@Body() createTaskDto: CreateTaskProgressDto) {
-        console.log('Creating progress task', CreateTaskProgressDto);
+        console.log(getLoggerDate(), 'Creating progress task', CreateTaskProgressDto);
         
         return this.taskProgressService.create(createTaskDto);
     }
@@ -46,14 +47,14 @@ export class TaskProgressController {
         @Param('taskId') taskId: string,
         @Param('userId') userId: string,
     ): Promise<TaskProgress> {
-        console.log('Getting progress for task id:', taskId, 'user:', userId);
+        console.log(getLoggerDate(), 'Getting progress for task id:', taskId, 'user:', userId);
         
         return this.taskProgressService.findOne(userId, taskId);
     }
 
     @Get(':userId')
     findAll(@Param('userId') userId: string): Promise<TaskProgress[]> {
-        console.log('getting all progress for userID', userId);
+        console.log(getLoggerDate(), 'getting all progress for userID', userId);
         
         if (userId) {
             return this.taskProgressService.findByUser(userId);
@@ -66,7 +67,7 @@ export class TaskProgressController {
         @Param('id') id: string,
         @Body() updateTaskProgressDto: UpdateTaskProgressDto,
     ) {
-        console.log(`Patching TaskProgress with ID: ${id}`);
+        console.log(`${getLoggerDate()} Patching TaskProgress for progressID: ${id}`);
         
         return this.taskProgressService.update(id, updateTaskProgressDto);
     }

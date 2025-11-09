@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
 import { LoginDto } from '../common/dto/login.dto';
 import { UserRole } from 'src/common/enums/user-role.enum';
+import { getLoggerDate } from 'src/common/helpers';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +26,7 @@ export class AuthService {
         }
         
         const user = await this.userService.findByUsername(username);
-        console.log('Password validation:', user ?
+        console.log(getLoggerDate(), 'execting password validation for:', username, user ?
             await this.userService.validatePassword(password, user.password) :
             'No user'
         );
@@ -62,11 +63,11 @@ export class AuthService {
         const tokenIsValid = await this.jwtService.verify(token);
         const user = await this.userService.findOne(userId);
         if (!tokenIsValid || !user) {
-            console.log('Invalid session for user', userId, 'token:', tokenIsValid, 'userId', userId);
-            throw new UnauthorizedException('ExtendSession: Invalid token or user', userId);
+            console.log(getLoggerDate(), 'Invalid session for user', userId, 'token:', tokenIsValid, 'userId', userId);
+            throw new UnauthorizedException(`${getLoggerDate} ExtendSession: Invalid token or user`, userId);
         }
         
-        console.log('Extending session for', user.username);
+        console.log(getLoggerDate(), 'Extending session for', user.username);
         const payload = { username: user.username, sub: user['_id'], role: user.role };
         return {
             token: this.jwtService.sign(payload),
