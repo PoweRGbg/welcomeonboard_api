@@ -14,6 +14,7 @@ import { CreateTaskDto } from '../common/dto/create-task.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { use } from 'passport';
 import { getLoggerDate } from 'src/common/helpers';
+import { UpdateTaskDto } from 'src/common/dto/update-task.dto';
 
 @Controller('tasks')
 @UseGuards(JwtAuthGuard)
@@ -49,9 +50,9 @@ export class TaskController {
         return this.taskService.findOne(id);
     }
 
-    @Patch(':name')
-    findByName(@Param('name') name: string) {
-        return this.taskService.findByName(name);
+    @Patch(':id')
+    findByIdAndUpdate(@Param('id') id: string, @Body() updatedTask: UpdateTaskDto) {
+        return this.taskService.update(id, updatedTask);
     }
 
     @Delete(':id')
