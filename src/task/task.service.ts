@@ -69,6 +69,8 @@ export class TaskService {
     }
 
     async update(id: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
+        console.log(getLoggerDate(), 'Updating task', updateTaskDto.name);
+        
         // Generate unique IDs for new actions
         if (updateTaskDto.actions) {
             updateTaskDto.actions = updateTaskDto.actions.map(action => ({
