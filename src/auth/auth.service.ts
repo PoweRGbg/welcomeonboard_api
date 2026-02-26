@@ -55,6 +55,7 @@ export class AuthService {
                 role: user.role,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                department: user.department,
             },
         };
     }
@@ -79,6 +80,7 @@ export class AuthService {
                 expires: Date.now() + 1000 * 60 * 5,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                department: user.department,
             },
         };
     }
